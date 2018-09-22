@@ -1,12 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import Sidebar from './Sidebar.js';
 
-class Profile extends React.Component{
+export default class Profile extends React.Component{
   render(){
     return(
-      <h1>Profile page</h1>
+					<div>
+						<Sidebar />
+					</div>
     );
   }
 }
-
-ReactDOM.render(<Profile />, document.getElementById('profileRoot'));

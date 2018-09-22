@@ -6,16 +6,19 @@ var createSchema = function(db, collectionName){
 }
 
 async function findUser(collection, userDetails, res){
-	await collection.findOne({email : userDetails.email}, function(err, result){
+	await collection.findOne({email : userDetails.email, pswrd: userDetails.pswrd}, function(err, result){
 		if(err) console.log("Error while fetching result");
 		const sendObj = {};
-		if(result){
+		console.log("the result is:");
+		console.log(result);
+		console.log("printed result");
+		if(result != null){
 			console.log("result : ");
 			console.log(result);
 			//res.send("Welcome "+ result.email);
 			sendObj.responseCode = 'SUCCESS';
 			sendObj.user = result.email;
-			sendObj.desc = 'User found';
+			sendObj.desc = result.email + ' found';
 			res.send(sendObj);
 		}
 		else
@@ -23,7 +26,7 @@ async function findUser(collection, userDetails, res){
 			console.log("no records");
 			sendObj.responseCode = 'FAILURE';
 			sendObj.user = userDetails.email;
-			sendObj.desc = 'User not found';
+			sendObj.desc = userDetails.email + ' not found';
 			res.send(sendObj);
 		}
 	});
@@ -34,7 +37,11 @@ function addUser(collection, userDetails, res){
 		if(err) throw err;
 		console.log("result:");
 		console.log(result.ops);
-		res.end("Thank you for using our app "+ result.ops[0].email)
+		const sendObj = {};
+		sendObj.responseCode = 'SUCCESS';
+		sendObj.user = result.ops[0].email;
+		sendObj.desc = result.ops[0].email + ' added';
+		res.send(sendObj);
 	})
 }
 

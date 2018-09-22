@@ -57,6 +57,7 @@ app.post('/login', function(req, res){
 	UserDb.findUser(dbObj.collection("users"), req.body, res).then( data => {
 		console.log("data");
 		console.log(data);
+		console.log("done data");
 	}).catch(err => {console.log("cannot find data")});
 });
 
